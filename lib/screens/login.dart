@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'SignUp.dart';
+import '../utils/SignUp.dart';
 import 'choice.dart';
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
 
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  TextEditingController mobileno = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery
@@ -43,14 +49,15 @@ class Login extends StatelessWidget {
                             ))
                         ),
                         child: TextField(
+                          controller: mobileno,
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Username",
+                              hintText: "Mobile No",
                               hintStyle: TextStyle(color: Colors.grey)
                           ),
                         ),
                       ),
-                      Container(
+                     /* Container(
                         padding: EdgeInsets.all(10),
                         child: TextField(
                           decoration: InputDecoration(
@@ -59,7 +66,7 @@ class Login extends StatelessWidget {
                               hintStyle: TextStyle(color: Colors.grey)
                           ),
                         ),
-                      )
+                      )*/
                     ],
                   ),
                 ),
@@ -92,7 +99,7 @@ class Login extends StatelessWidget {
                     20),),),
                 ),
                 SizedBox(height: size.height * 0.04,),
-                InkWell(
+               /* InkWell(
                   onTap: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>SignUp()));
                   },
@@ -104,7 +111,7 @@ class Login extends StatelessWidget {
                     ],
                   ),
                 )
-
+*/
               ],
             ),
           ),

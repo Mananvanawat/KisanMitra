@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
+import '../screens/login.dart';
 class SignUp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {

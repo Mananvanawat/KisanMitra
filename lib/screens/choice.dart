@@ -14,7 +14,7 @@ class Choice extends StatelessWidget {
             width: MediaQuery
                 .of(context)
                 .size
-                .width * 0.8,
+                .width * 1,
             color: Colors.cyan[100],
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -42,7 +42,7 @@ class Choice extends StatelessWidget {
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      onPressed: () {
+                      onPressed:() {
                         Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context)=>FarmerHome()));
                       },

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'screens/login.dart';
-void main() {
+import 'package:kisan_mitra1/services/authservice.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -15,10 +20,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SafeArea(
-        child: Login(
-        ),
-      ),
+//      home: SafeArea(
+//        child: Login(
+//        ),),
+        home: AuthService().handleAuth(),
     );
   }
 }

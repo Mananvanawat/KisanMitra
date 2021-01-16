@@ -1,37 +1,55 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:kisan_mitra1/utils/widgets/Button.dart';
+import 'package:kisan_mitra1/utils/widgets/myTextField.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 class AddCommodity extends StatelessWidget {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController otherController = TextEditingController();
+  Future<void> addCommodity() {
+    // Call the user's CollectionReference to add a new user
+    return users.doc(user.uid).collection('commodities')
+        .add({
+      'commodity': nameController.text, // John Doe
+      'quantity': quantityController.text ,// Stokes and Sons
+      'price': priceController.text,
+      'other' :otherController.text// 42
+    })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
+  User user = FirebaseAuth.instance.currentUser;
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   Widget build(BuildContext context) {
-    TextEditingController mycontroller = TextEditingController();
-    TextEditingController mycontroller1 = TextEditingController();
-    TextEditingController mycontroller2 = TextEditingController();
+
     return Scaffold(
-      appBar: AppBar(
-      ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
-                  ),
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                MyTextField(
+                    name: "Commodity", hintText: "Enter name of commodity",
+                myController: nameController,),
+                MyTextField(name: "Quantity", hintText: "Enter quantity",
+                myController: quantityController,),
+                MyTextField(name: "Price", hintText: "Enter price",myController: priceController,),
+                MyTextField(
+                    name: "Other details", hintText: "Enter other details",myController: otherController,),
+                Button(
+                  text: "Add",
+                  onpressed: () {
+                       addCommodity();
+                       Navigator.of(context).pop();
+                  },
                 ),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'User Name',
-                  hintText: 'Enter Your Name',
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

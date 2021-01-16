@@ -11,24 +11,31 @@ class FarmerHome extends StatefulWidget {
 
 class _FarmerHomeState extends State<FarmerHome> {
   int _page = 0;
+  String title1;
   @override
   Widget build(BuildContext context) {
 
     final List<Widget> _children = [FarmerCommodity(),FarmerOrders(),FarmerProfile()];
+    final List<String> title1 = ["My Commodities","Orders","Profile"];
     void onTabTapped(int index){
       setState(() {
         _page = index;
       });
     }
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0,
+        title: Text(title1[_page]),
+      ),
       body:_children[_page],
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.green,
+        color: Colors.white,
+        height: 75,
         items: <Widget>[
-          Icon(Icons.home, size: 30),
-          Icon(Icons.receipt, size: 30),
-          Icon(Icons.person, size: 30),
+          Icon(Icons.home, size: 22),
+          Icon(Icons.receipt, size: 22),
+          Icon(Icons.person, size: 22),
         ],
         onTap: (index) {
           setState(() {

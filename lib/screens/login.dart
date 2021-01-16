@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:kisan_mitra1/screens/choice.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kisan_mitra1/screens/farmer_home.dart';
+import '../utils/userClass.dart';
 //import '../utils/SignUp.dart';
 //import '../Provider/SignUpNotifier.dart';
 import 'choice.dart';
@@ -66,17 +69,18 @@ class _LoginState extends State<Login> {
 //                  FirebaseAuth.instance.currentUser;
                       if (FirebaseAuth.instance.currentUser != null) {
                         Navigator.of(context).pop();
-                        Navigator.push(
+
+                        /*Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Choice()),
-                        );
+                        );*/
                       } else {
                         Navigator.of(context).pop();
                         signIn(smssent);
                       }
                     },
                     child: Text(
-                      'done',
+                      'Done',
                       style: TextStyle(color: Colors.blue),
                     ),
                   ),
@@ -93,13 +97,22 @@ class _LoginState extends State<Login> {
       smsCode: smsCode,
     );
 
-    await FirebaseAuth.instance.signInWithCredential(credential).then((user) {
+    await FirebaseAuth.instance.signInWithCredential(credential).then((users) {
+      if(users.additionalUserInfo.isNewUser){
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => Choice(),
         ),
-      );
+      );}
+      else{
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FarmerHome(),
+          ),
+        );
+      }
     }).catchError((e) {
       print(e);
     });
@@ -141,53 +154,52 @@ class _LoginState extends State<Login> {
         child: Container(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 40),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: size.height * 0.4,
-                ),
-                Text(
-                  'LOGIN',
-                  style: TextStyle(
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 29,
-                      color: Colors.cyan),
-                ),
-                SizedBox(
-                  height: size.height * 0.05,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(196, 135, 198, .3),
-                          blurRadius: 20,
-                          offset: Offset(0, 10),
-                        )
-                      ]),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(color: Colors.grey[200]))),
-                        child: TextField(
-                          controller: mobileno,
-                          onChanged: (value) {
-                            this.phoneNo = value;
-                          },
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Mobile No",
-                              hintStyle: TextStyle(color: Colors.grey)),
-                        ),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SizedBox(
+                height: size.height * 0.4,
+              ),
+              Text(
+                'LOGIN',
+                style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 29,
+                    color: Colors.cyan),
+              ),
+              SizedBox(
+                height: size.height * 0.05,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(196, 135, 198, .3),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      )
+                    ]),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(color: Colors.grey[200]))),
+                      child: TextField(
+                        controller: mobileno,
+                        onChanged: (value) {
+                          this.phoneNo = value;
+                        },
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Mobile No",
+                            hintStyle: TextStyle(color: Colors.grey)),
                       ),
-                      /* Container(
+                    ),
+                    /* Container(
                         padding: EdgeInsets.all(10),
                         child: TextField(
                           decoration: InputDecoration(
@@ -197,42 +209,49 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                       )*/
-                    ],
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.05,
+              ),
+              Container(
+                height: 60,
+                width: 346,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(196, 135, 198, .3),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      )
+                    ]),
+                child: RaisedButton(
+                  elevation: 6,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  color: Colors.cyan,
+                  onPressed: () {
+                    verfiyPhone();
+                  },
+                  child: Text(
+                    "LOGIN",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
-                SizedBox(
-                  height: size.height * 0.05,
-                ),
-                Container(
-                  height: 60,
-                  width: 346,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(196, 135, 198, .3),
-                          blurRadius: 20,
-                          offset: Offset(0, 10),
-                        )
-                      ]),
-                  child: RaisedButton(
-                    elevation: 6,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    color: Colors.cyan,
-                    onPressed: () {
-                      verfiyPhone();
-                    },
-                    child: Text(
-                      "LOGIN",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.04,
-                )]),),),),);}}
+              ),
+              SizedBox(
+                height: size.height * 0.04,
+              )
+            ]),
+          ),
+        ),
+      ),
+    );
+  }
+}
 //                /* InkWell(
 //                  onTap: () {
 //                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>SignUp()));

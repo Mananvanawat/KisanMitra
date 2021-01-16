@@ -24,7 +24,7 @@ class _FarmerHomeState extends State<FarmerHome> {
       appBar: AppBar(),
       body:_children[_page],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.green,
         items: <Widget>[
           Icon(Icons.home, size: 30),
           Icon(Icons.receipt, size: 30),

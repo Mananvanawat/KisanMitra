@@ -1,8 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:kisan_mitra1/screens/farmer_commodity.dart';
-import 'package:kisan_mitra1/screens/farmer_order.dart';
-import 'package:kisan_mitra1/screens/farmer_profile.dart';
+import 'FarmerCommodity.dart';
+import 'FarmerOrders.dart';
+import 'FarmerProfile.dart';
 
 class FarmerHome extends StatefulWidget {
   @override
@@ -11,24 +11,31 @@ class FarmerHome extends StatefulWidget {
 
 class _FarmerHomeState extends State<FarmerHome> {
   int _page = 0;
+  String title1;
   @override
   Widget build(BuildContext context) {
 
     final List<Widget> _children = [FarmerCommodity(),FarmerOrders(),FarmerProfile()];
+    final List<String> title1 = ["My Commodities","Orders","Profile"];
     void onTabTapped(int index){
       setState(() {
         _page = index;
       });
     }
     return Scaffold(
-     // appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0,
+        title: Text(title1[_page]),
+      ),
       body:_children[_page],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.green,
+        color: Colors.white,
+        height: 75,
         items: <Widget>[
-          Icon(Icons.home, size: 30),
-          Icon(Icons.receipt, size: 30),
-          Icon(Icons.person, size: 30),
+          Icon(Icons.home, size: 22),
+          Icon(Icons.receipt, size: 22),
+          Icon(Icons.person, size: 22),
         ],
         onTap: (index) {
           setState(() {

@@ -22,6 +22,7 @@ class _AddCommodityState extends State<AddCommodity> {
     // Call the user's CollectionReference to add a new user
     return users.doc(user.uid).collection('commodities')
         .add({
+      'uid':user.uid,
       'commodity': dropDownValue, // John Doe
       'quantity': quantityController.text ,// Stokes and Sons
       'price': priceController.text,

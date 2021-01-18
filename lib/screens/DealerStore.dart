@@ -14,7 +14,7 @@ class _DealerStoreState extends State<DealerStore> {
   var userData = [];
   @override
   Widget build(BuildContext context) {
-  //  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference users = FirebaseFirestore.instance.collection('users').where('type',isEqualTo: 'farmer');
     /*FirebaseFirestore.instance
         .collection('users')
         .get()
@@ -30,8 +30,26 @@ class _DealerStoreState extends State<DealerStore> {
     }
     })
     });*/
-    return Container(
-      child: ListView.builder(itemBuilder: null),
+    return StreamBuilder<QuerySnapshot>(
+      stream: users.snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something went wrong');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text("Loading");
+        }
+
+        return new ListView(
+          children: snapshot.data.docs.map((DocumentSnapshot document) {
+           return ListTile(
+             title: Text('Abc'),
+           );
+
+          }).toList(),
+        );
+      },
     );
   }
 }

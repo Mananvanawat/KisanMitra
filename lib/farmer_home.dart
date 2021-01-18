@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kisan_mitra1/editprofile.dart';
 import 'package:kisan_mitra1/login.dart';
 import 'dart:async';
-
-
-AuthService1 appAuth = new AuthService1();
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FarmerHome extends StatefulWidget {
   @override
@@ -103,8 +101,11 @@ class _FarmerHomeState extends State<FarmerHome> {
               leading: Icon(Icons.logout),
               trailing: Icon(Icons.keyboard_arrow_right),
               onTap: () {
-                appAuth.logout().then(
-                        (_) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Login()))
+//
+                FirebaseAuth.instance.signOut().then((onValue){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
+                  print("Signed out successfully");
+                }
                 );
 //                    _signOut();
 //                Navigator.push(
@@ -160,16 +161,6 @@ Future<Language> _asyncSimpleDialog(BuildContext context) async {
 
 }
 
-class AuthService1
-{
-  Future<void> logout() async {
-    // Simulate a future for response after 1 second.
-    return await new Future<void>.delayed(
-        new Duration(
-            seconds: 1
-        )
-    );
-  }
-}
+
 
 

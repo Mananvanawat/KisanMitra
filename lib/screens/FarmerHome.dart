@@ -24,18 +24,18 @@ class _FarmerHomeState extends State<FarmerHome> {
     }
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 4,
         title: Text(title1[_page]),
       ),
       body:_children[_page],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.green,
-        color: Colors.white,
-        height: 75,
+        backgroundColor: Colors.white,
+        color: Theme.of(context).primaryColor,
+        height: 60,
         items: <Widget>[
-          Icon(Icons.home, size: 22),
-          Icon(Icons.receipt, size: 22),
-          Icon(Icons.person, size: 22),
+          Icon(Icons.home, size: 25,color: Colors.white,),
+          Icon(Icons.receipt, size: 25,color: Colors.white,),
+          Icon(Icons.person, size: 25,color: Colors.white,),
         ],
         onTap: (index) {
           setState(() {

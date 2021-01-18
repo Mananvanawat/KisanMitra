@@ -16,7 +16,13 @@ class Login extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: size.height * 0.4,),
+                SizedBox(height: 120,),
+                Center(
+                  child: Image(
+                    image: AssetImage("assets/logo.jpeg"),
+                    height: 220.0,),
+                ),
+                SizedBox(height: 100),
                 Text('LOGIN', style: TextStyle(fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.bold,
                     fontSize:29, color: Colors.cyan),),
@@ -43,23 +49,14 @@ class Login extends StatelessWidget {
                             ))
                         ),
                         child: TextField(
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Username",
+                              hintText: "Enter Mobile Number",
                               hintStyle: TextStyle(color: Colors.grey)
                           ),
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Password",
-                              hintStyle: TextStyle(color: Colors.grey)
-                          ),
-                        ),
-                      )
                     ],
                   ),
                 ),

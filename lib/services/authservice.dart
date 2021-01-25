@@ -10,7 +10,7 @@ class AuthService {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
-            return Choice();
+            return Login();
           } else {
             return Login();
           }

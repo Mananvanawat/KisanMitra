@@ -15,21 +15,6 @@ class _DealerStoreState extends State<DealerStore> {
   @override
   Widget build(BuildContext context) {
   CollectionReference users = FirebaseFirestore.instance.collection('users').where('type',isEqualTo: 'farmer');
-    /*FirebaseFirestore.instance
-        .collection('users')
-        .get()
-        .then((QuerySnapshot querySnapshot) => {
-    querySnapshot.docs.forEach((doc) {
-      if(doc.data()['type']=="farmer")
-      {
-        doc.reference.collection('commodities').get().then((QuerySnapshot querySnapshot) => {
-    querySnapshot.docs.forEach((doc) {
-      print(doc.data()['commodity']);
-      }
-    )});
-    }
-    })
-    });*/
     return StreamBuilder<QuerySnapshot>(
       stream: users.snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

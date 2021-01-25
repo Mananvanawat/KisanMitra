@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
     };
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: phoneNo,
-      timeout: const Duration(seconds: 5),
+      timeout: const Duration(seconds: 30),
       verificationCompleted: verifiedSuccess,
       verificationFailed: verifyFailed,
       codeSent: smsCodeSent,
@@ -47,40 +47,40 @@ class _LoginState extends State<Login> {
           return Center(
             child: SingleChildScrollView(
                 child: Center(
-              child: AlertDialog(
-                title: Text('Enter OTP'),
-                content: Expanded(
-                  child: TextField(
-                    onChanged: (value) {
-                      this.smssent = value;
-                    },
-                  ),
-                ),
-                contentPadding: EdgeInsets.all(10.0),
-                actions: <Widget>[
-                  FlatButton(
-                    onPressed: () {
+                  child: AlertDialog(
+                    title: Text('Enter OTP'),
+                    content: Expanded(
+                      child: TextField(
+                        onChanged: (value) {
+                          this.smssent = value;
+                        },
+                      ),
+                    ),
+                    contentPadding: EdgeInsets.all(10.0),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () {
 //                  FirebaseAuth.instance.currentUser;
-                      if (FirebaseAuth.instance.currentUser != null) {
-                        Navigator.of(context).pop();
+                          if (FirebaseAuth.instance.currentUser != null) {
+                            Navigator.of(context).pop();
 
-                        /*Navigator.push(
+                            /*Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Choice()),
                         );*/
-                      } else {
-                        Navigator.of(context).pop();
-                        signIn(smssent);
-                      }
-                    },
-                    child: Text(
-                      'Done',
-                      style: TextStyle(color: Colors.blue),
-                    ),
+                          } else {
+                            Navigator.of(context).pop();
+                            signIn(smssent);
+                          }
+                        },
+                        child: Text(
+                          'Done',
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            )),
+                )),
           );
         });
   }
@@ -93,12 +93,12 @@ class _LoginState extends State<Login> {
 
     await FirebaseAuth.instance.signInWithCredential(credential).then((users) {
       if(users.additionalUserInfo.isNewUser){
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Choice(),
-        ),
-      );}
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Choice(),
+          ),
+        );}
       else{
         Navigator.push(
           context,
@@ -116,40 +116,13 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-//      body: Column(
-//        mainAxisAlignment: MainAxisAlignment.center,
-//        children: <Widget>[
-//          Padding(
-//            padding: const EdgeInsets.all(16.0),
-//            child: TextField(
-//              decoration: InputDecoration(
-//                hintText: "Enter your phone number",
-//              ),
-//              onChanged: (value) {
-//                this.phoneNo = value;
-//              },
-//            ),
-//          ),
-//          SizedBox(
-//            height: 10.0,
-//          ),
-//          RaisedButton(
-//            onPressed: verfiyPhone,
-//            child: Text(
-//              "verify",
-//              style: TextStyle(color: Colors.white),
-//            ),
-//            elevation: 7.0,
-//            color: Colors.blue,
-//          )
-//        ],
-//      ),
+
       body: SingleChildScrollView(
         child: Container(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 40),
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               SizedBox(
                 height: size.height * 0.4,
               ),
@@ -188,6 +161,7 @@ class _LoginState extends State<Login> {
                           this.phoneNo = value;
                         },
                         decoration: InputDecoration(
+                          prefixText: '+91',
                             border: InputBorder.none,
                             hintText: "Mobile No",
                             hintStyle: TextStyle(color: Colors.grey)),
@@ -246,133 +220,4 @@ class _LoginState extends State<Login> {
     );
   }
 }
-//                /* InkWell(
-//                  onTap: () {
-//                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>SignUp()));
-//                  },
-//                  child: Row(
-//                    mainAxisAlignment: MainAxisAlignment.center,
-//                    children: [
-//                      Text('Not a member?Sign in',
-//                        style: TextStyle(color: Colors.blue),),
-//                    ],
-//        var size = MediaQuery
-//        .of(context)
-//        .size;
-//    return ChangeNotifierProvider<SignUpNotifier>(
-//      create: (context)=>SignUpNotifier(),
-//      child: Scaffold(
-//        body: SingleChildScrollView(
-//          child: Container(
-//            child: Padding(
-//              padding: EdgeInsets.symmetric(horizontal: 40),
-//              child: Column(
-//                crossAxisAlignment: CrossAxisAlignment.start,
-//                children: [
-//                  SizedBox(height: size.height * 0.4,),
-//                  Text('LOGIN', style: TextStyle(fontStyle: FontStyle.normal,
-//                      fontWeight: FontWeight.bold,
-//                      fontSize:29, color: Colors.cyan),),
-//                  SizedBox(height: size.height * 0.05,),
-//                  Container(
-//                    decoration: BoxDecoration(
-//                        borderRadius: BorderRadius.circular(10),
-//                        color: Colors.white,
-//                        boxShadow: [
-//                          BoxShadow(
-//                            color: Color.fromRGBO(196, 135, 198, .3),
-//                            blurRadius: 20,
-//                            offset: Offset(0, 10),
-//                          )
-//                        ]
-//                    ),
-//                    child: Column(
-//                      children: <Widget>[
-//                        Container(
-//                          padding: EdgeInsets.all(10),
-//                          decoration: BoxDecoration(
-//                              border: Border(bottom: BorderSide(
-//                                  color: Colors.grey[200]
-//                              ))
-//                          ),
-//                          child: Consumer<SignUpNotifier>(
-//                            builder: (context,SignUpNotifier,child) {
-//                              return TextField(
-//                                controller: mobileno,
-//                                onChanged: (val) {
-//                                  SignUpNotifier.changeNo(val);
-//
-//                                },
-//                                decoration: InputDecoration(
-//                                    border: InputBorder.none,
-//                                    hintText: "Mobile No",
-//                                    hintStyle: TextStyle(color: Colors.grey)
-//                                ),
-//                              );
-//
-//                            }),
-//                        ),
-//                       /* Container(
-//                          padding: EdgeInsets.all(10),
-//                          child: TextField(
-//                            decoration: InputDecoration(
-//                                border: InputBorder.none,
-//                                hintText: "Password",
-//                                hintStyle: TextStyle(color: Colors.grey)
-//                            ),
-//                          ),
-//                        )*/
-//                      ],
-//                    ),
-//                  ),
-//                  SizedBox(height: size.height * 0.05,),
-//                  Container(
-//                    height: 60,
-//                    width: 346,
-//                    decoration: BoxDecoration(
-//                        borderRadius: BorderRadius.circular(10),
-//                        color: Colors.white,
-//                        boxShadow: [
-//                          BoxShadow(
-//                            color: Color.fromRGBO(196, 135, 198, .3),
-//                            blurRadius: 20,
-//                            offset: Offset(0, 10),
-//                          )
-//                        ]
-//                    ),
-//
-//                    child: RaisedButton(
-//                      elevation: 6,
-//                      shape: RoundedRectangleBorder(
-//                          borderRadius: BorderRadius.circular(10)),
-//                      color: Colors.cyan,
-//                      onPressed: () {
-//                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Choice()));
-//                      },
-//                      child: Text(
-//                        "LOGIN", style: TextStyle(color: Colors.white, fontSize:
-//                      20),),),
-//                  ),
-//                  SizedBox(height: size.height * 0.04,),
-//                 /* InkWell(
-//                    onTap: () {
-//                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>SignUp()));
-//                    },
-//                    child: Row(
-//                      mainAxisAlignment: MainAxisAlignment.center,
-//                      children: [
-//                        Text('Not a member?Sign in',
-//                          style: TextStyle(color: Colors.blue),),
-//                      ],
-//                    ),
-//                  )
-//                   */
-//                ],
-//              ),
-//            ),
-//          ),
-//        ),
-//      ),
-//    );
-//  }
-//}
+

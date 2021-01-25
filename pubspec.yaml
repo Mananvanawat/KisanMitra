@@ -24,11 +24,13 @@ dependencies:
   flutter:
     sdk: flutter
   curved_navigation_bar:
-  firebase_auth: ^0.20.0+1
+  firebase_auth:
   firebase_core:
   provider:
-  geolocator: ^5.3.1
+  geolocator:
   cloud_firestore:
+  flutter_spinkit:
+
 
 
   # The following adds the Cupertino Icons font to your application.

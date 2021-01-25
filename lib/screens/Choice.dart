@@ -22,6 +22,7 @@ class _ChoiceState extends State<Choice> {
   String fullName;
   String mobileNo;
   String address;
+  String locality;
 
   @override
   void initState() {
@@ -53,6 +54,7 @@ class _ChoiceState extends State<Choice> {
       setState(() {
         _currentAddress =
         "${place.locality}, ${place.postalCode}, ${place.country}";
+        locality = place.locality;
       });
     } catch (e) {
       print(e);
@@ -199,7 +201,8 @@ class _ChoiceState extends State<Choice> {
       'full_name': fullName, // John Doe
       'mobileNo':  user.phoneNumber,// Stokes and Sons
       'address': address,
-      'type' : type// 42
+      'type' : type,// 42
+      'locality':locality,
     })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));

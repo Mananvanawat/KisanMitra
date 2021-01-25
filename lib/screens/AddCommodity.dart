@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_mitra1/utils/widgets/Button.dart';
 import 'package:kisan_mitra1/utils/widgets/myTextField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 class AddCommodity extends StatefulWidget {
   @override
   _AddCommodityState createState() => _AddCommodityState();
@@ -10,31 +12,28 @@ class AddCommodity extends StatefulWidget {
 
 class _AddCommodityState extends State<AddCommodity> {
   String dropDownValue;
-  TextEditingController nameController = TextEditingController();
+  TextEditingController name = TextEditingController();
 
-  TextEditingController quantityController = TextEditingController();
+  TextEditingController quantity = TextEditingController();
 
-  TextEditingController priceController = TextEditingController();
+  TextEditingController price = TextEditingController();
 
-  TextEditingController otherController = TextEditingController();
-
+  TextEditingController other = TextEditingController();
   Future<void> addCommodity() {
     // Call the user's CollectionReference to add a new user
-    return users.doc(user.uid).collection('commodities')
-        .add({
-      'uid':user.uid,
-      'commodity': dropDownValue, // John Doe
-      'quantity': quantityController.text ,// Stokes and Sons
-      'price': priceController.text,
-      'other' :otherController.text// 42
-    })
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
+  FirebaseFirestore.instance.collection('commodities').add({
+    'commodity':dropDownValue,
+    'uid':user.uid,
+    'price':price,
+    'other':other,
+    'quantity':quantity
+
+  },
+     // SetOptions(merge: true)
+  );
   }
 
   User user = FirebaseAuth.instance.currentUser;
-
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -78,13 +77,23 @@ class _AddCommodityState extends State<AddCommodity> {
               ),
                 SizedBox(height: 10,),
                 MyTextField(name: "Quantity", hintText: "Enter quantity",
-                myController: quantityController,),
-                MyTextField(name: "Price", hintText: "Enter price",myController: priceController,),
+                myController: quantity,),
+                MyTextField(name: "Price", hintText: "Enter price",myController: price,),
                 MyTextField(
-                    name: "Other details", hintText: "Enter other details",myController: otherController,),
+                    name: "Other details", hintText: "Enter other details",myController: other,),
                 Button(
                   text: "Add",
                   onpressed: () {
+                    FirebaseFirestore.instance.collection('commodities').add({
+                      'commodity':dropDownValue,
+                      'uid':user.uid,
+                      'price':price,
+                      'other':other,
+                      'quantity':quantity
+
+                    },
+                      // SetOptions(merge: true)
+                    );
                        addCommodity();
                        Navigator.of(context).pop();
                   },

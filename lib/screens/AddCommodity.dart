@@ -34,7 +34,7 @@ class _AddCommodityState extends State<AddCommodity> {
 
   User user = FirebaseAuth.instance.currentUser;
 
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference users = FirebaseFirestore.instance.collection('commodities');
 
   @override
   Widget build(BuildContext context) {

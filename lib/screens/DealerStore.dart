@@ -14,7 +14,7 @@ class _DealerStoreState extends State<DealerStore> {
   var userData = [];
   @override
   Widget build(BuildContext context) {
-  CollectionReference users = FirebaseFirestore.instance.collection('users').where('type',isEqualTo: 'farmer');
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
     /*FirebaseFirestore.instance
         .collection('users')
         .get()
@@ -44,7 +44,7 @@ class _DealerStoreState extends State<DealerStore> {
         return new ListView(
           children: snapshot.data.docs.map((DocumentSnapshot document) {
            return ListTile(
-             title: Text('Abc'),
+             title: Text(document.id),
            );
 
           }).toList(),

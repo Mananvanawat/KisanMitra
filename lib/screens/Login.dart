@@ -25,13 +25,15 @@ class _LoginState extends State<Login> {
         print("Code Sent");
       });
     };
-    final PhoneVerificationCompleted verifiedSuccess = (AuthCredential auth) {};
+    final PhoneVerificationCompleted verifiedSuccess = (AuthCredential auth) {
+      return Choice();
+    };
     final PhoneVerificationFailed verifyFailed = (FirebaseAuthException e) {
       print('${e.message}');
     };
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: phoneNo,
-      timeout: const Duration(seconds: 30),
+      timeout: const Duration(seconds: 60),
       verificationCompleted: verifiedSuccess,
       verificationFailed: verifyFailed,
       codeSent: smsCodeSent,
@@ -119,6 +121,8 @@ class _LoginState extends State<Login> {
 
       body: SingleChildScrollView(
         child: Container(
+          height: size.height,
+          color: Theme.of(context).highlightColor,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 40),
             child:
@@ -132,7 +136,7 @@ class _LoginState extends State<Login> {
                     fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.bold,
                     fontSize: 29,
-                    color: Colors.cyan),
+                    color: Theme.of(context).primaryColor),
               ),
               SizedBox(
                 height: size.height * 0.05,
@@ -156,27 +160,19 @@ class _LoginState extends State<Login> {
                           border: Border(
                               bottom: BorderSide(color: Colors.grey[200]))),
                       child: TextField(
+                        style: TextStyle(color: Theme.of(context).accentColor),
                         controller: mobileno,
                         onChanged: (value) {
-                          this.phoneNo = value;
+                          phoneNo = "+91"+value;
+                          print("mobile no - "+phoneNo);
                         },
                         decoration: InputDecoration(
                           prefixText: '+91',
                             border: InputBorder.none,
                             hintText: "Mobile No",
-                            hintStyle: TextStyle(color: Colors.grey)),
+                            hintStyle: TextStyle(color: Theme.of(context).accentColor)),
                       ),
                     ),
-                    /* Container(
-                        padding: EdgeInsets.all(10),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Password",
-                              hintStyle: TextStyle(color: Colors.grey)
-                          ),
-                        ),
-                      )*/
                   ],
                 ),
               ),
@@ -200,13 +196,13 @@ class _LoginState extends State<Login> {
                   elevation: 6,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  color: Colors.cyan,
+                  color: Theme.of(context).primaryColor,
                   onPressed: () {
                     verfiyPhone();
                   },
                   child: Text(
                     "LOGIN",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Theme.of(context).highlightColor, fontSize: 20),
                   ),
                 ),
               ),

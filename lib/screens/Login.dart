@@ -150,19 +150,29 @@ class _LoginState extends State<Login> {
             padding: EdgeInsets.symmetric(horizontal: 40),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.12,
+                  ),
+                  Center(
+                    child: Image(
+                      image: AssetImage("assets/logo1.jpg"),
+                      height: 120.0,),
+                  ),
               SizedBox(
-                height: size.height * 0.4,
+                height: MediaQuery.of(context).size.height*0.03,
               ),
-              Text(
-                'LOGIN',
-                style: TextStyle(
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 29,
-                    color: Colors.cyan),
+              Center(
+                child: Text(
+                  'KISAN MITRA',
+                  style: TextStyle(
+                       fontFamily: 'PottaOne',
+
+                      fontSize: 29,
+                      color: Colors.green),
+                ),
               ),
               SizedBox(
-                height: size.height * 0.05,
+                height: size.height * 0.3,
               ),
               Container(
                 decoration: BoxDecoration(
@@ -226,7 +236,7 @@ class _LoginState extends State<Login> {
                   elevation: 6,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  color: Colors.cyan,
+                  color: Colors.green,
                   onPressed: () {
                     verfiyPhone();
                   },

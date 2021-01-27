@@ -20,13 +20,14 @@ class _AddCommodityState extends State<AddCommodity> {
 
   Future<void> addCommodity() {
     // Call the user's CollectionReference to add a new user
-    return users.doc(user.uid).collection('commodities')
+    return users
         .add({
       'uid':user.uid,
       'commodity': dropDownValue, // John Doe
       'quantity': quantityController.text ,// Stokes and Sons
       'price': priceController.text,
-      'other' :otherController.text// 42
+      'other' :otherController.text,// 42
+      'time' : DateTime.now()
     })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));

@@ -20,10 +20,10 @@ class _FarmerCommodityState extends State<FarmerCommodity> {
   @override
   Widget build(BuildContext context) {
     Stream collectionStream = FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .collection("commodities")
-        .snapshots();
+        .collection('commodities')
+        .where('uid' , isEqualTo: user.uid)
+        .snapshots()
+    ;
     return Scaffold(
       body: Container(
         color:Theme.of(context).primaryColorLight,
@@ -32,7 +32,7 @@ class _FarmerCommodityState extends State<FarmerCommodity> {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
-              return Text('Something went wrong');
+              return Text('No data');
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {

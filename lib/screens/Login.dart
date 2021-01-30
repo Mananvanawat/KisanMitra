@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
       print('${e.message}');
     };
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: phoneNo,
+      phoneNumber: "+91"+phoneNo,
       timeout: const Duration(seconds: 5),
       verificationCompleted: verifiedSuccess,
       verificationFailed: verifyFailed,
@@ -198,6 +198,7 @@ class _LoginState extends State<Login> {
                           this.phoneNo = value;
                         },
                         decoration: InputDecoration(
+                           prefix: Text("+91"),
                             border: InputBorder.none,
                             hintText: "Mobile No",
                             hintStyle: TextStyle(color: Colors.grey)),

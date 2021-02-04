@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:kisan_mitra1/screens/Choice.dart';
+import 'package:kisan_mitra1/screens/DealerHome.dart';
 import 'FarmerHome.dart';
 
 class Login extends StatefulWidget {
@@ -92,20 +94,15 @@ class _LoginState extends State<Login> {
     );
 
     await FirebaseAuth.instance.signInWithCredential(credential).then((users) {
-      if(users.additionalUserInfo.isNewUser){
-      Navigator.push(
+      if( users.additionalUserInfo.isNewUser==true){
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => Choice(),
         ),
       );}
       else{
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => FarmerHome(),
-          ),
-        );
+        getData(users);
       }
     }).catchError((e) {
       print(e);
@@ -255,6 +252,32 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  Future<void> getData(users) async{
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(users.user.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.data()['type']=="farmer") {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FarmerHome(),
+          ),
+                (Route<dynamic> route) => false
+        );
+      }else{
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DealerHome(),
+          ),
+                (Route<dynamic> route) => false
+        );
+      }
+    });
   }
 }
 //                /* InkWell(

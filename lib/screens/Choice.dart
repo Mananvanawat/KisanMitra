@@ -148,8 +148,8 @@ class _ChoiceState extends State<Choice> {
                           color: Colors.green,
                           onPressed: () {
                             addUser('farmer');
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (context) => FarmerHome()));
+                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                                builder: (context) => FarmerHome()),(Route<dynamic> route) => false);
                           },
                           child: Text(
                             "FARMER",
@@ -173,8 +173,8 @@ class _ChoiceState extends State<Choice> {
                           color: Colors.redAccent,
                           onPressed: () {
                             addUser('dealer');
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (context) => DealerHome()));
+                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                                builder: (context) => DealerHome()),(Route<dynamic> route) => false);
                           },
                           child: Text(
                             "DEALER",

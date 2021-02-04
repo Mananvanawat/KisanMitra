@@ -1,8 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_mitra1/screens/DealerOrders.dart';
 import 'package:kisan_mitra1/screens/DealerProfile.dart';
 import 'package:kisan_mitra1/screens/DealerStore.dart';
+import 'package:kisan_mitra1/screens/Login.dart';
 
 class DealerHome extends StatefulWidget {
   @override
@@ -26,6 +28,94 @@ class _DealerHomeState extends State<DealerHome> {
       appBar: AppBar(
         elevation: 4,
         title: Text(title1[_page]),
+      ),
+      drawer:Drawer(
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text("Farmer Name"),
+              accountEmail: Text("+91 1234567890"),
+              currentAccountPicture: CircleAvatar(
+//                child: Text('You'),
+                radius: 30,
+                backgroundImage: NetworkImage(
+                    "https://thumbs.dreamstime.com/z/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg"),
+                backgroundColor: Colors.transparent,
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Language',
+                textDirection: TextDirection.ltr,
+              ),
+//              subtitle: Text("English"),
+              leading: Icon(Icons.language),
+              trailing: Icon(Icons.keyboard_arrow_right),
+              onTap: () async {
+
+                print("Selected Language is ");
+              },
+              subtitle: Text("English"),
+            ),
+            ListTile(
+              title: Text(
+                'Address',
+                textDirection: TextDirection.ltr,
+              ),
+              subtitle: Text("Loation"),
+              leading: Icon(Icons.location_on),
+              trailing: Icon(Icons.keyboard_arrow_right),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text(
+                'Edit Profile',
+                textDirection: TextDirection.ltr,
+              ),
+              leading: Icon(Icons.edit),
+              trailing: Icon(Icons.keyboard_arrow_right),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DealerProfile()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Logout',
+                textDirection: TextDirection.ltr,
+              ),
+              leading: Icon(Icons.logout),
+              trailing: Icon(Icons.keyboard_arrow_right),
+              onTap: () {
+//
+                FirebaseAuth.instance.signOut().then((onValue){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
+                  print("Signed out successfully");
+                }
+                );
+//                    _signOut();
+//                Navigator.push(
+//                  context,
+//                  MaterialPageRoute(builder: (context) => Login()),
+//                );
+              },
+            ),
+            Divider(
+              height: 220.0,
+            ),
+            ListTile(
+              title: Text(
+                'Close',
+                textDirection: TextDirection.ltr,
+              ),
+              leading: Icon(Icons.close_fullscreen),
+              trailing: Icon(Icons.close),
+              onTap: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
       ),
       body:_children[_page],
       bottomNavigationBar: CurvedNavigationBar(

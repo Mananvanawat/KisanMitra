@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 class DealerStore extends StatefulWidget {
   @override
   _DealerStoreState createState() => _DealerStoreState();
@@ -13,11 +13,7 @@ class _DealerStoreState extends State<DealerStore> {
   var commodity = [];
   var userData = [];
 
-  Future<void> getFarmerData(String doc){
-    return FirebaseFirestore.instance.collection('users').doc(doc).get().then((value) => {
-      print(value.data()['full_name'])
-    });
-  }
+
   List<String> url = [
     'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tomato_je.jpg/1024px-Tomato_je.jpg',
     'https://www.foodpoisonjournal.com/files/2020/08/salmonella3.jpg',
@@ -27,6 +23,7 @@ class _DealerStoreState extends State<DealerStore> {
   @override
   Widget build(BuildContext context) {
   CollectionReference users = FirebaseFirestore.instance.collection('commodities');
+
     return Container(
       color: Theme.of(context).primaryColorLight,
       child: StreamBuilder<QuerySnapshot>(
@@ -52,49 +49,98 @@ class _DealerStoreState extends State<DealerStore> {
               else {
                 no = 3;
               }
-              String name;
-              getFarmerData(document.id);
              return Padding(
                padding: const EdgeInsets.fromLTRB(11.0, 11, 11, 0),
                child: ClipRRect(
                  borderRadius: BorderRadius.circular(10),
                  child: Container(
-                   height: 100,
+                   height: 170,
                    width: MediaQuery.of(context).size.width,
 
                    child: new Card(
-                     color:Color(0xfffefae0),
-                     child: Row(
+                     child: Column(
                        children: [
-                         Padding(
-                           padding: const EdgeInsets.all(8.0),
-                           child: ClipRRect(
-                             borderRadius:BorderRadius.circular(8),
-                             child: Image.network(
-                               url[no],
+                         Row(
+                           children: [
+                             Padding(
+                               padding: const EdgeInsets.all(8.0),
+                               child: ClipRRect(
+                                 borderRadius:BorderRadius.circular(8),
+                                 child: Image.network(
+                                   url[no],
 
-                               height: 100,
-                               scale: 1,
+                                   height: 100,
+                                   scale: 1,
+                                 ),
+                               ),
                              ),
-                           ),
+                             Padding(
+                               padding: const EdgeInsets.all(8.0),
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   Text("Commodity: "+document.data()['commodity'],style: TextStyle(
+                                       color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold
+                                   ),),
+                                   Text("Name: "+document.data()['name'],style: TextStyle(
+                                       color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold
+                                   ),),
+                                   Text("Location: "+document.data()['address'][0],style: TextStyle(
+                                       color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold
+                                   ),),
+                                   Text("Price: ₹ " + document.data()['price']+(' (Per Kg)'),style: TextStyle(
+                                       color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold
+                                   ),),
+                                   Text("Quantity:" +
+                                       document.data()["quantity"] +
+                                       " Kg",style: TextStyle(
+                                       color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold
+                                   ),),
+                                 ],
+                               ),
+                             )
+                           ],
                          ),
-                         Padding(
-                           padding: const EdgeInsets.all(8.0),
-                           child: Column(
-                             crossAxisAlignment: CrossAxisAlignment.start,
+                         Divider(
+                           height: 5,
+                           thickness: 1,
+                           color: Colors.black,
+                         ),
+                         Expanded(
+                           child: Row(
                              children: [
-
-                               Text("Commodity: "+document.data()['commodity'],style: TextStyle(
-                                   color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold
-                               ),),
-                               Text("Price: ₹ " + document.data()['price']+(' (Per Kg)'),style: TextStyle(
-                                   color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold
-                               ),),
-                               Text("Quantity:" +
-                                   document.data()["quantity"] +
-                                   " Kg",style: TextStyle(
-                                   color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold
-                               ),),
+                               Expanded(
+                                 child: FlatButton(
+                                   color:Colors.green[100],
+                                   onPressed:()async{
+                                     var phone = document.data()['mobileNo'];
+                                     var url = 'tel:$phone';
+                                     if (await canLaunch(url)) {
+                                     await launch(url);
+                                     } else {
+                                     throw 'Could not launch $url';
+                                     }
+                                   },
+                                   child: Container(child: Icon(Icons.call,size: 30,color: Colors.green,),
+                                   height: 45
+                                   ),
+                                 ),
+                               ),
+                               VerticalDivider(
+                                   thickness: 1,
+                                 width: 7,
+                                 color: Colors.black,
+                               ),
+                               Expanded(
+                                 child: FlatButton(
+                                   color:Colors.orange[100],
+                                   onPressed: (){},
+                                   child: Container(child: Icon(
+                                     Icons.shopping_cart,size: 30,color: Colors.orange,),
+                                     height: 45,
+                                   ),
+                                 ),
+                               ),
                              ],
                            ),
                          )

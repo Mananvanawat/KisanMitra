@@ -148,6 +148,7 @@ class _ChoiceState extends State<Choice> {
                           color: Colors.green,
                           onPressed: () {
                             addUser('farmer');
+
                             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                                 builder: (context) => FarmerHome()),(Route<dynamic> route) => false);
                           },
@@ -193,6 +194,7 @@ class _ChoiceState extends State<Choice> {
 
   Future<void> addUser(String type) {
     address = _currentAddress;
+
     // Call the user's CollectionReference to add a new user
     return users.doc(user.uid)
         .set({

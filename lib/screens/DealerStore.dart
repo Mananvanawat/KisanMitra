@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kisan_mitra1/screens/DealerCart.dart';
 import 'package:url_launcher/url_launcher.dart';
 class DealerStore extends StatefulWidget {
   @override
@@ -134,7 +135,9 @@ class _DealerStoreState extends State<DealerStore> {
                                Expanded(
                                  child: FlatButton(
                                    color:Colors.orange[100],
-                                   onPressed: (){},
+                                   onPressed: (){
+                                     Navigator.of(context).push(MaterialPageRoute(builder: (context)=>DealerCart(document,user.uid.toString())));
+                                   },
                                    child: Container(child: Icon(
                                      Icons.shopping_cart,size: 30,color: Colors.orange,),
                                      height: 45,

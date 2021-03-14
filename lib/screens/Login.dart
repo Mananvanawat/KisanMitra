@@ -7,11 +7,14 @@ import 'package:kisan_mitra1/screens/DealerHome.dart';
 import 'FarmerHome.dart';
 
 class Login extends StatefulWidget {
+  static DocumentSnapshot a;
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+
+  _LoginState();
   String phoneNo, smssent, verificationId;
   TextEditingController mobileno = TextEditingController();
 
@@ -102,6 +105,7 @@ class _LoginState extends State<Login> {
         ),
       );}
       else{
+
         getData(users);
       }
     }).catchError((e) {
@@ -260,6 +264,7 @@ class _LoginState extends State<Login> {
         .doc(users.user.uid)
         .get()
         .then((DocumentSnapshot documentSnapshot) {
+
       if (documentSnapshot.data()['type']=="farmer") {
         Navigator.pushAndRemoveUntil(
           context,

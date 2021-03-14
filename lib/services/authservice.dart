@@ -7,15 +7,17 @@ import 'package:kisan_mitra1/screens/FarmerHome.dart';
 import 'package:kisan_mitra1/screens/Login.dart';
 
 class AuthService {
+  static int x;
   //Handles Auth
   handleAuth() {
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
-            var x = getData(snapshot.data.uid);
-            if(x == 1)
-              return FarmerHome();
+            getData(snapshot.data.uid);
+            if(x == 1){
+              x=1;
+              return FarmerHome();}
             else return DealerHome();
           } else {
             return Login();
@@ -39,9 +41,8 @@ class AuthService {
     signIn(authCreds);
   }
 
-  Future<int> getData(uid) async {
-    int x;
-    FirebaseFirestore.instance
+  Future<void> getData(uid) async{
+    await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
         .get()
@@ -52,8 +53,6 @@ class AuthService {
         x=2;
       }
     });
-    if(x==1)
-      return 1;
-    else return 2;
+
   }
 }

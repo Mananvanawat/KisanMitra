@@ -9,15 +9,7 @@ class _FarmerProfileState extends State<FarmerProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Edit Profile"),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      
       body: Container(
         color: Colors.white,
         child: ListView(

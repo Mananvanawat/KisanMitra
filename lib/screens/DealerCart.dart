@@ -32,7 +32,7 @@ class _DealerCartState extends State<DealerCart> {
       'time' : DateTime.now(),
       'from':widget.x,
       'to':data['uid'],
-      'status':'Not Approved',
+      'status':'Pending',
       'paymentStatus':'Unpaid'
     })
         .then((value) => print("User Added"))

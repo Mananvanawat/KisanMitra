@@ -8,19 +8,16 @@ class Loading extends StatelessWidget {
     return  Column(
       children: <Widget>[
         Container(
-          color: Theme.of(context).primaryColor,
-          height: screenHeight(context),
+          color: Theme.of(context).primaryColorLight,
+          height: MediaQuery.of(context).size.height,
           child: Center(
             child: SpinKitSpinningCircle(
-              color: Theme.of(context).primaryColorLight,
+              color: Theme.of(context).primaryColor,
               size: 50.0,
             ),
           ),
         ),
-        Text(
-          'Loading...',
-          style: TextStyle(color: Theme.of(context).primaryColorLight,fontSize:20),
-        )
+
       ],
     );
 

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kisan_mitra1/screens/DealerCart.dart';
+import 'package:kisan_mitra1/screens/Loading.dart';
 import 'package:url_launcher/url_launcher.dart';
 class DealerStore extends StatefulWidget {
   @override
@@ -35,7 +36,7 @@ class _DealerStoreState extends State<DealerStore> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
+            return Loading();
           }
 
           return new ListView(

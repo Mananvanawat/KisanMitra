@@ -26,10 +26,10 @@ class _FarmerOrdersState extends State<FarmerOrders> {
 
         return new ListView(
           children: snapshot.data.docs.map((DocumentSnapshot document) {
-            return new Card(
-              child: Row(
+            return new ListTile(
+              title: new Text(document.data()['commodity']),
 
-              ),
+
             );
           }).toList(),
         );

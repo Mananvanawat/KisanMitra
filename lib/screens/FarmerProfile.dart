@@ -122,15 +122,18 @@ class _FarmerProfileState extends State<FarmerProfile> {
               padding: const EdgeInsets.all(25.0),
               child: Row(
                 children: [
-                  RaisedButton(
-                    onPressed: () {},
-                    color: Colors.green,
-                    elevation: 6,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Text(
-                      "SAVE",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
+                  Container(
+                    width: 120,
+                    child: RaisedButton(
+                      onPressed: () {},
+                      color: Colors.green,
+                      elevation: 6,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Text(
+                        "SAVE",
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                      ),
                     ),
                   ),
                   SizedBox(width: 80,),

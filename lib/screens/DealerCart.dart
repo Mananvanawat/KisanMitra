@@ -32,8 +32,8 @@ class _DealerCartState extends State<DealerCart> {
       'time' : DateTime.now(),
       'from':widget.x,
       'to':data['uid'],
-      'status':'Pending',
-      'paymentStatus':'Unpaid'
+      'status':'pending',
+      'paymentStatus':'unpaid'
     })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));

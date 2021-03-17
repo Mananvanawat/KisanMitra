@@ -83,7 +83,7 @@ class _DealerOrdersState extends State<DealerOrders> {
                                   child: Container(
                                     height:22,
                                     width:100,
-                                    color:document.data()['status']=='Approved'?Colors.green:Colors.red,
+                                    color:document.data()['status']=='approved'?Colors.green:Colors.red,
                                     child: Center(child: Text(document.data()['status'],style: TextStyle(color: Colors.white),)),
                                   ),
                                 ),

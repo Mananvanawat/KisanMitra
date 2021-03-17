@@ -25,6 +25,18 @@ class _FarmerOrdersState extends State<FarmerOrders> {
   @override
   Widget build(BuildContext context) {
     Stream collectionStream = FirebaseFirestore.instance.collection('orders').where('to',isEqualTo: user).snapshots();
+    Future<String> myFunc(String id){
+      return FirebaseFirestore.instance
+          .collection('users')
+          .doc(id)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          return documentSnapshot.data()['full_name'];
+        }
+        else return " ";
+      });
+    }
     return StreamBuilder<QuerySnapshot>(
 
       stream: collectionStream,
@@ -61,7 +73,8 @@ class _FarmerOrdersState extends State<FarmerOrders> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(document.data()['commodity'],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                      Text('Quantity :' + document.data()['quantity'])
+                      Text('Quantity :' + document.data()['quantity']),
+                      Text('Customer name :' + myFunc(document.data()['from']).toString()),
                     ],
                   ),
                   SizedBox(width: 30,),

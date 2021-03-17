@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
-void main() {
+import 'package:kisan_mitra1/services/authservice.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:kisan_mitra1/styles/theme.dart';
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -11,14 +17,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: SafeArea(
-        child: Login(
-        ),
-      ),
+      theme:lightTheme,
+//      home: SafeArea(
+//        child: Login(
+//        ),),
+        home: AuthService().handleAuth(),
     );
   }
 }

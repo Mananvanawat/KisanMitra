@@ -1,6 +1,6 @@
 # kisan_mitra1
 
-A new Flutter application.
+An app that provides a platform to farmers where they can sell their produce to traders.
 
 ## Getting Started
 
